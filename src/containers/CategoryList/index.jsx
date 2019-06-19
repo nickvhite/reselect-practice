@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {changeCategory} from '../../store/actions/category';
+import selectors from '../../selectors';
 import {jokesCategoriesCounter, favoritesCategoriesCounter} from '../../selectors/jokes';
 
 class CategoryList extends Component {
@@ -64,8 +65,8 @@ CategoryList.propTypes = {
 export default connect(
     state => ({
         category: state.category,
-        jokesCount: jokesCategoriesCounter(state),
-        favoritesCount: favoritesCategoriesCounter(state)
+        jokesCount: selectors.jokesCategoriesCounter(state),
+        favoritesCount: selectors.favoritesCategoriesCounter(state)
     }),
     {
         changeCategory
