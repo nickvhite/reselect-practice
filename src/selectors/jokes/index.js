@@ -29,5 +29,7 @@ jokesSelectors.favoritesCategoriesCounter = createPropSelector(
     favoritesArray => getFavoritesCount(favoritesArray)
 );
 
+jokesSelectors.getJokes = createPropSelector('jokes');
+
 export default jokesSelectors;
 

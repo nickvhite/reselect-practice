@@ -6,6 +6,8 @@ import {removeFromFavorites, changeFavorite} from "../../store/actions/jokes";
 
 import Joke from '../Joke';
 
+import selectors from '../../selectors';
+
 class FavoritesList extends Component {
     static propTypes = {
         jokes: PropTypes.array.isRequired,
@@ -85,8 +87,8 @@ class FavoritesList extends Component {
 
 export default connect(
     state => ({
-        jokes: state.jokes,
-        category: state.category
+        jokes: selectors.getJokes(state),
+        category: selectors.getCategory(state)
     }),{
         removeFromFavorites,
         changeFavorite

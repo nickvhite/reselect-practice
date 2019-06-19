@@ -6,7 +6,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunc from 'redux-thunk';
 
 import GeneralLayOut from './compoentns/General-layout';
-import Jokes from './containers/Jokes';
+import Jokes from './compoentns/Jokes';
 import './styles/index.css';
 import reducer from './store';
 

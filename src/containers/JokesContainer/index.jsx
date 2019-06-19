@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import {pushJoke} from "../../store/actions/jokes";
 import {setJokesCategories, disableButton} from "../../store/actions/category";
 
+import selectors from '../../selectors';
+
 import JokesService from '../../services/jokes-service';
 
 import CategoryList from '../CategoryList';
@@ -93,8 +95,8 @@ class Jokes extends Component {
 
 export default connect(
     state => ({
-        jokes: state.jokes,
-        category: state.category
+        jokes: selectors.getJokes(state),
+        category: selectors.getCategory(state)
     }),
     {
         setJokesCategories,

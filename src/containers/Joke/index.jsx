@@ -4,12 +4,14 @@ import PropTypes from 'prop-types';
 
 import CategoryIcon from '../CategoryIcon';
 
+import selectors from '../../selectors';
+
 import {pushToFavorites, removeFromFavorites, changeFavorite} from '../../store/actions/jokes';
 
 class Joke extends Component {
     static propTypes = {
         joke: PropTypes.object.isRequired,
-        category: PropTypes.object.isRequired,
+        currentList: PropTypes.string.isRequired,
         pushToFavorites: PropTypes.func.isRequired,
         removeFromFavorites: PropTypes.func.isRequired,
         changeFavorite: PropTypes.func.isRequired
@@ -52,12 +54,12 @@ class Joke extends Component {
     }
 
     render() {
-        const {joke, removeFromFavorites, pushToFavorites, category} = this.props;
+        const {joke, removeFromFavorites, pushToFavorites, currentList} = this.props;
         return (
             <div className='joke-item'>
                 <CategoryIcon category={joke.categories[0] || 'all'} />
                 <div className='joke-body'>
-                    {category.currentList === 'favorites' && this.state.changeMode ?
+                    {currentList === 'favorites' && this.state.changeMode ?
                         <textarea
                             ref={ref => this.textarea = ref}
                             value={this.state.newValue}
@@ -68,7 +70,7 @@ class Joke extends Component {
                         /> :
                         <p>{joke.value}</p>
                     }
-                    {category.currentList === 'favorites' ? (
+                    {currentList === 'favorites' ? (
                         <div className='favorites-button'>
                             {this.state.changeMode ?
                                 <i className="fas fa-times" onClick={() => this.disableChangeMode()} /> :
@@ -100,7 +102,7 @@ class Joke extends Component {
 
 export default connect(
     state => ({
-        category: state.category
+        currentList: selectors.getCategoryListName(state)
     }), {
         pushToFavorites,
         removeFromFavorites,

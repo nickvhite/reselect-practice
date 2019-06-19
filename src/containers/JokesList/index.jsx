@@ -3,23 +3,24 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Joke from '../Joke';
+import selectors from "../../selectors";
 
 class JokesList extends Component {
     static propTypes = {
         jokes: PropTypes.array.isRequired,
-        category: PropTypes.object.isRequired,
+        currentCategory: PropTypes.string.isRequired,
         getJoke: PropTypes.func.isRequired
     };
 
     componentWillMount() {
-        if (!this.props.jokes.length && this.props.category.currentCategory === 'all') {
+        if (!this.props.jokes.length && this.props.currentCategory === 'all') {
             this.props.getJoke();
         }
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.jokes.length !== this.props.jokes.length ||
-            prevProps.category.currentCategory !== this.props.category.currentCategory) {
+            prevProps.currentCategory !== this.props.currentCategory) {
             this.jokesList.scrollTo('top', 9999999999);
         }
     }
@@ -48,7 +49,7 @@ class JokesList extends Component {
 
     renderCategory() {
         const {jokes} = this.props;
-        const {currentCategory} = this.props.category;
+        const {currentCategory} = this.props;
         let sortedList = jokes.filter(joke => {
             if (joke.categories.indexOf(currentCategory) >= 0) {
                 return joke;
@@ -62,7 +63,7 @@ class JokesList extends Component {
     }
 
     render() {
-        const {currentCategory} = this.props.category;
+        const {currentCategory} = this.props;
         return (
             <div
                 ref={ref => this.jokesList = ref}
@@ -81,8 +82,8 @@ class JokesList extends Component {
 
 export default connect(
     state => ({
-        jokes: state.jokes,
-        category: state.category
+        jokes: selectors.getJokes(state),
+        currentCategory: selectors.getCurrentCategory(state)
     }),
     null
 )(JokesList)

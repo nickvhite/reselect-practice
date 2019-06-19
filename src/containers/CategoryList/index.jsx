@@ -1,62 +1,32 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {changeCategory} from '../../store/actions/category';
 import selectors from '../../selectors';
-import {jokesCategoriesCounter, favoritesCategoriesCounter} from '../../selectors/jokes';
 
-class CategoryList extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            count: {}
-        };
-    }
-
-    getFavorites() {
-        return this.props.jokes.filter(joke => joke.favorite)
-    }
-
-    getJokesArray() {
-        return this.props.category.currentList === 'jokes' ? this.props.jokes : this.getFavorites();
-    }
-
-    getJokesCount() {
-        let jokesArray = this.getJokesArray();
-        let count = {
-            all: jokesArray.length
-        };
-        jokesArray.map(joke => {
-            if (joke.categories.length) {
-                count[joke.categories[0]] = count[joke.categories[0]] ? count[joke.categories[0]] += 1 : 1;
-            }
-        });
-        return count;
-    }
-
-    render () {
-        const {category} = this.props;
-        const count = this.props.category.currentList === 'jokes' ? this.props.jokesCount : this.props.favoritesCount;
-        return (
-            <div className="category">
-                {category.available.map(categoryLink =>
-                    <p
-                        key={categoryLink}
-                        className={`category-name ${categoryLink === category.currentCategory ? 'active' : ''}`}
-                        onClick={()=>this.props.changeCategory(categoryLink)}
-                    >
-                        {categoryLink }
-                        <span>{count[categoryLink] || 0}</span>
-                    </p>
-                )}
-            </div>
-        )
-    }
+const CategoryList = ({currentCategory, categoryList, currentList, jokesCount, favoritesCount, changeCategory}) => {
+    const count = currentList === 'jokes' ? jokesCount : favoritesCount;
+    return (
+        <div className="category">
+            {categoryList.map(categoryLink =>
+                <p
+                    key={categoryLink}
+                    className={`category-name ${categoryLink === currentCategory ? 'active' : ''}`}
+                    onClick={()=>changeCategory(categoryLink)}
+                >
+                    {categoryLink }
+                    <span>{count[categoryLink] || 0}</span>
+                </p>
+            )}
+        </div>
+    )
 };
 
 CategoryList.propTypes = {
-    category: PropTypes.object.isRequired,
+    currentCategory: PropTypes.string.isRequired,
+    categoryList: PropTypes.array.isRequired,
+    currentList: PropTypes.string.isRequired,
     changeCategory: PropTypes.func.isRequired,
     jokesCount: PropTypes.object.isRequired,
     favoritesCount: PropTypes.object.isRequired
@@ -64,7 +34,9 @@ CategoryList.propTypes = {
 
 export default connect(
     state => ({
-        category: state.category,
+        currentCategory: selectors.getCurrentCategory(state),
+        categoryList: selectors.getCategoriesList(state),
+        currentList: selectors.getCategoryListName(state),
         jokesCount: selectors.jokesCategoriesCounter(state),
         favoritesCount: selectors.favoritesCategoriesCounter(state)
     }),

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import JokesContainer from '../JokesContainer';
-import JokesNavigator from '../JokesNavigator';
+import JokesContainer from '../../containers/JokesContainer';
+import JokesNavigator from '../../containers/JokesNavigator';
 
 const Jokes = () => (
     <div className='container'>
