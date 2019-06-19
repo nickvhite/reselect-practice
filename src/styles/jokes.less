@@ -1,0 +1,148 @@
+.jokes {
+  display: flex;
+  width: 100%;
+  height: calc(100% - 33px);
+
+  .jokes-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: calc(100% - 150px);
+
+    .jokes-list {
+      padding: 0 15px;
+      overflow-y: auto;
+    }
+
+    .jokes-buttons {
+      padding: 0 15px;
+      display: flex;
+      justify-content: flex-end;
+      border-top: #dadce0 1px solid;
+
+      button {
+        background: #1a73e8;
+        color: #fff;
+        padding: 0 24px;
+        letter-spacing: 0.25px;
+        font-size: 14px;
+        line-height: 36px;
+        border-radius: 4px;
+        margin: 10px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+
+        &:disabled {
+          opacity: 0.5;
+        }
+
+        &:hover {
+          background-color: #2d7dea;
+        }
+      }
+    }
+  }
+}
+
+.joke-item {
+  display: flex;
+  margin: 10px 0;
+
+  i {
+    width: 50px;
+    height: 50px;
+    font-size: 26px;
+    background-color: #1a73e8;
+    color: white;
+    border-radius: 50%;
+    line-height: 50px;
+    text-align: center;
+    z-index: 2;
+    cursor: pointer;
+  }
+
+  .joke-body {
+    border: 2px solid #1a73e8;
+    border-radius: 8px;
+    width: calc(100% - 120px);
+    min-height: 42px;
+    margin: 0 0 0 -30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 5px 10px 5px 35px;
+
+    textarea, p {
+      font-size: 16px;
+      line-height: 24px;
+      margin: 0;
+      width: 100%;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      font-family: Roboto,Helvetica,Arial,sans-serif;
+      overflow: hidden;
+      resize: none;
+      min-height: 50px;
+      outline: none;
+      padding: 0;
+    }
+
+    .favorites-button {
+      width: 32px;
+      margin: -7px 0;
+
+      i {
+        font-size: 18px;
+        background-color: transparent;
+        color: #5f6368;
+        line-height: 32px;
+        width: 32px;
+        height: 32px;
+
+        &.disabled {
+          opacity: 0.5;
+          pointer-events: none;
+        }
+      }
+    }
+  }
+
+  .fa-star {
+    color: #ff0101;
+    background-color: transparent;
+  }
+}
+
+@media all and (max-width: 813px) {
+  .jokes {
+    .jokes-container {
+      width: 100%;
+    }
+  }
+}
+
+@media all and (max-width: 480px) {
+  .jokes {
+    height: calc(100% - 52px);
+
+    .jokes-container {
+      .jokes-buttons {
+        justify-content: center;
+        padding-bottom: 16px;
+
+        button {
+          width: 100%;
+          font-size: 18px;
+          line-height: 48px;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}

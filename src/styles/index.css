@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+@import "font-awesome/fontAwesome.min.css";
+
+@import 'general-container.css';
+@import 'jokes.css';
+@import 'category-list.css';
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Roboto,Helvetica,Arial,sans-serif;
+}
